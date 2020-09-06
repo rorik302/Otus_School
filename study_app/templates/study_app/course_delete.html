@@ -1,0 +1,21 @@
+{% extends 'study_app/course_base.html' %}
+
+{% block title %}
+    Удаление курса
+{% endblock %}
+
+{% block course-header %}
+    Удаление курса
+{% endblock %}
+
+{% block form %}
+    <form method="post">
+        {% csrf_token %}
+        <h5>Вы действительно хотите удалить курс {{ object.title }}?</h5>
+
+        <section class="col-6">
+            <input type="submit" value="Удалить" class="btn btn-danger col-5">
+            <a href="{% url 'courses-list' %}" class="btn btn-outline-secondary col-5">Все курсы</a>
+        </section>
+    </form>
+{% endblock %}

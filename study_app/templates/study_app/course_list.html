@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Список курсов
+{% endblock %}
+
+{% block main %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h1>Список курсов</h1>
+
+            {% for course in course_list %}
+                <article class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h4>{{ course.title }}</h4>
+                        <p>{{ course.description }}</p>
+                        <a href="{% url 'course-detail' pk=course.pk %}" class="btn btn-outline-success">Открыть</a>
+                    </div>
+                    <footer class="card-footer d-flex justify-content-between small">
+                        <span>Продолжительность: {% if course.duration_month > 0 %}{{ course.duration_month }} мес.
+                            {% else %}{{ course.duration_weeks }} нед.{% endif %}</span>
+                        <span>Дата начала: {{ course.start_date }}</span>
+                    </footer>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

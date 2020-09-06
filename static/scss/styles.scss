@@ -1,0 +1,16 @@
+body {
+  background-color: #ecebeb;
+}
+
+input, select, textarea {
+  width: 100%;
+  border: 1px solid #cccccc;
+  border-radius: .25rem;
+  padding-left: .5rem;
+  line-height: 2rem;
+}
+
+select {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}

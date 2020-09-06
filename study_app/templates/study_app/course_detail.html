@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Курс: {{ course.title }}
+{% endblock %}
+
+{% block main %}
+    <article class="card shadow">
+        <div class="card-body">
+            <h1>
+                {{ course.title }}
+            </h1>
+            <section class="mb-3">
+                <a href="{% url 'course-update' pk=course.pk %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'course-delete' pk=course.pk %}" class="btn btn-danger">Удалить</a>
+            </section>
+
+            <p class="course__description">{{ course.description }}</p>
+
+            <article class="card mb-3">
+                <div class="card-body">
+                    <h4>Преподаватели</h4>
+
+                    <div class="row m-0">
+                        {% for teacher in course.teachers.all %}
+                            <section class="card col-2 mr-2 mb-2">
+                                <div class="card-body px-0">
+                                    <img class="img-fluid"
+                                         src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+                                         alt="">
+                                    <span>{{ teacher.full_name }}</span>
+                                </div>
+                            </section>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-body">
+                    <h4>Программа курса</h4>
+
+                    {% for module in course.modules.all %}
+                        <section class="card mb-3">
+                            <div class="card-body">
+                                <h5>{{ module.title }}</h5>
+                            </div>
+
+                            <ul>
+                                {% for lesson in module.lesson_set.all %}
+                                    <li>{{ lesson.title }}</li>
+                                {% endfor %}
+                            </ul>
+                        </section>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+
+    </article>
+{% endblock %}

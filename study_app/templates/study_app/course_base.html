@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <article class="card shadow">
+        <div class="card-body">
+            <h1 class="mb-3">{% block course-header %}{% endblock %}</h1>
+
+            {% block form %}{% endblock %}
+        </div>
+    </article>
+{% endblock %}
