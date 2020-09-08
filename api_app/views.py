@@ -8,7 +8,9 @@ from users_app.serializers import TeacherSerializer, StudentSerializer
 
 
 class CourseView(generics.GenericAPIView):
-    queryset = Course.objects.all()
+    queryset = Course.objects.prefetch_related('modules', 'teachers', 'students', 'teachers__groups',
+                                               'teachers__user_permissions', 'students__groups',
+                                               'students__user_permissions')
     serializer_class = CourseSerializer
 
 
@@ -44,7 +46,7 @@ class ModuleDetailView(generics.RetrieveAPIView, ModuleView):
 
 
 class LessonView(generics.GenericAPIView):
-    queryset = Lesson.objects.all()
+    queryset = Lesson.objects.prefetch_related('module')
     serializer_class = LessonSerializer
 
 

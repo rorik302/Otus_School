@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from study_app.forms import CourseForm
-from study_app.models import Course
+from study_app.models import Course, Lesson, Module
 
 
 class CoursesListView(ListView):
@@ -12,6 +12,10 @@ class CoursesListView(ListView):
 
 class CourseDetailView(DetailView):
     model = Course
+
+    def get_object(self, queryset=None):
+        obj = Course.objects.prefetch_related('modules', 'teachers', 'modules__lesson_set').get(id=self.kwargs['pk'])
+        return obj
 
 
 class CourseCreateView(CreateView):
