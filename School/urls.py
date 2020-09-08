@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from graphene_django.views import GraphQLView
@@ -11,3 +12,9 @@ urlpatterns = [
     path('api/', include('api_app.urls')),
     path('graphql/', GraphQLView.as_view(graphiql=True, schema=schema))
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

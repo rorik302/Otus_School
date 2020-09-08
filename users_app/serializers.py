@@ -7,11 +7,11 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Teacher
-        fields = '__all__'
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
 
 class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
