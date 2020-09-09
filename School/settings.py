@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'study_app',
     'email_app',
     'api_app',
+
+    'frontend',
 ]
 
 MIDDLEWARE = [
