@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="card shadow">
+        <div class="card-body">
+            <h1>Профиль пользователя {{ user.username }}</h1>
+
+            <form>
+                <div class="row m-0 mb-2">
+                    <div class="col-3 p-0">Access token</div>
+                    <div class="col-9 p-0">
+                        <input type="text" class="access-token-input">
+                    </div>
+                </div>
+                <div class="row m-0 mb-2">
+                    <div class="col-3 p-0">Refresh token</div>
+                    <div class="col-9 p-0">
+                        <input type="text" class="refresh-token-input">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Обновить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        const accessToken = localStorage.getItem('accessToken');
+        const refreshToken = localStorage.getItem('refreshToken');
+
+        if (accessToken) {
+            document.querySelector('.access-token-input').value = accessToken
+        }
+
+        if (refreshToken) {
+            document.querySelector('.refresh-token-input').value = refreshToken
+        }
+
+        // Обновление access токена
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            let formData = new FormData();
+            formData.append('refresh', refreshToken)
+
+            fetch('/api/token/refresh/', {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(response => {
+                    document.querySelector('.access-token-input').value = response.access;
+                    localStorage.setItem('accessToken', response.access)
+                })
+        })
+    </script>
+{% endblock %}

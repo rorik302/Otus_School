@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Авторизация</title>
+</head>
+<body>
+<div class="vh-100 d-flex">
+    <div class="card p-3 m-auto" style="width: 500px;">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row m-0 mb-2">
+                    <div class="col-4 p-0">{{ field.label }}</div>
+                    <div class="col-8 p-0">{{ field }}</div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Войти</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Получение jwt
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let formData = new FormData();
+        formData.append('username', form.querySelector('#id_username').value);
+        formData.append('password', form.querySelector('#id_password').value);
+        fetch('/api/token/', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(response => {
+                localStorage.setItem('accessToken', response.access);
+                localStorage.setItem('refreshToken', response.refresh)
+            })
+        form.submit()
+    })
+</script>
+</body>
+</html>

@@ -29,6 +29,17 @@
                     <a href="{% url 'contacts' %}" class="btn btn-light">Контакты</a>
                 </li>
             </ul>
+
+            <ul class="navbar-nav flex-row align-items-center">
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' pk=user.id %}" class="btn btn-light mr-3">Профиль</a>
+                        <a href="{% url 'logout' %}" class="btn btn-light mr-3">Выйти</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-light mr-3">Войти</a>
+                    {% endif %}
+                </li>
+            </ul>
         </nav>
     </header>
 
@@ -39,5 +50,6 @@
 
 
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+{% block js %}{% endblock %}
 </body>
 </html>
