@@ -34,12 +34,14 @@ class CoursesListPage extends React.Component {
 
         <section>
           {this.state.courses.map(course => {
+            const url = `/courses/${course.id}`;
+
             return (
-              <article className="card mb-3 shadow-sm">
+              <article className="card mb-3 shadow-sm" key={course.id}>
                 <div className="card-body">
                   <h4>{course.title}</h4>
                   <p>{course.description}</p>
-                  <a href="/courses/:id" className="btn btn-outline-success">Открыть</a>
+                  <a href={url} className="btn btn-outline-success">Открыть</a>
                 </div>
                 <footer className="card-footer d-flex justify-content-between small">
                   <span>Продолжительность: {Math.floor(course.duration / 7)} нед.</span>
@@ -50,15 +52,6 @@ class CoursesListPage extends React.Component {
           })}
         </section>
       </div>
-      // <ul>
-      //   {this.state.courses.map(course => {
-      //     return (
-      //       <li key={course.id}>
-      //         {course.title}
-      //       </li>
-      //     );
-      //   })}
-      // </ul>
     );
   }
 }
