@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'graphene_django',
     'debug_toolbar',
+    'drf_yasg',
 
     'users_app',
     'study_app',
