@@ -14,7 +14,9 @@ class MainLayout extends React.Component {
                 </header>
 
                 <main>
-                    {this.props.children}
+                    <div className="main__content">
+                        {this.props.children}
+                    </div>
                 </main>
             </>
         )
