@@ -5,7 +5,15 @@ from .models import Course, Module, Lesson
 from users_app.serializers import TeacherSerializer, StudentSerializer
 
 
+class LessonSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Lesson
+        fields = '__all__'
+
+
 class ModuleSerializer(serializers.ModelSerializer):
+    lessons = LessonSerializer(source='lesson_set', many=True)
 
     class Meta:
         model = Module
@@ -19,12 +27,4 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = '__all__'
-
-
-class LessonSerializer(serializers.ModelSerializer):
-    module = ModuleSerializer(read_only=True)
-
-    class Meta:
-        model = Lesson
         fields = '__all__'

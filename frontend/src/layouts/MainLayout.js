@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../components/Navbar";
 
 class MainLayout extends React.Component {
     constructor(props) {
@@ -14,8 +14,12 @@ class MainLayout extends React.Component {
                 </header>
 
                 <main>
-                    <div className="main__content">
-                        {this.props.children}
+                    <div className="container">
+                        <div className="card">
+                            <div className="card-body">
+                                {this.props.children}
+                            </div>
+                        </div>
                     </div>
                 </main>
             </>

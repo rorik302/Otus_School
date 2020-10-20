@@ -1,12 +1,18 @@
 from django.conf import settings
+from django.conf.urls import handler404
 from django.contrib import admin
 from django.urls import path, include, re_path
-from graphene_django.views import GraphQLView
+from django.views.generic import TemplateView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-from .schema import schema
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('api_app.urls')),
+    re_path(r'', TemplateView.as_view(template_name='frontend/index.html'))
+]
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -20,12 +26,6 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api_app.urls')),
-    re_path(r'.*', include('frontend.urls'))
-]
 
 if settings.DEBUG:
     import debug_toolbar

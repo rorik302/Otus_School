@@ -1,4 +1,6 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from study_app.models import Course, Module, Lesson
@@ -7,29 +9,9 @@ from users_app.models import Teacher, Student
 from users_app.serializers import TeacherSerializer, StudentSerializer
 
 
-class CourseView(generics.GenericAPIView):
-    queryset = Course.objects.prefetch_related('modules', 'teachers', 'students', 'teachers__groups',
-                                               'teachers__user_permissions', 'students__groups',
-                                               'students__user_permissions')
-    serializer_class = CourseSerializer
-
-
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-
-
-class CoursesListView(generics.ListAPIView, CourseView):
-    pass
-
-
-class CourseDetailView(generics.RetrieveAPIView, CourseView):
-    pass
-
-
-class ModuleView(generics.GenericAPIView):
-    queryset = Module.objects.all()
-    serializer_class = ModuleSerializer
 
 
 class ModuleViewSet(ModelViewSet):
@@ -37,30 +19,9 @@ class ModuleViewSet(ModelViewSet):
     serializer_class = ModuleSerializer
 
 
-class ModuleListView(generics.ListAPIView, ModuleView):
-    pass
-
-
-class ModuleDetailView(generics.RetrieveAPIView, ModuleView):
-    pass
-
-
-class LessonView(generics.GenericAPIView):
-    queryset = Lesson.objects.prefetch_related('module')
-    serializer_class = LessonSerializer
-
-
 class LessonViewSet(ModelViewSet):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-
-
-class LessonListView(generics.ListAPIView, LessonView):
-    pass
-
-
-class LessonDetailView(generics.RetrieveAPIView, LessonView):
-    pass
 
 
 class TeacherView(generics.GenericAPIView):
