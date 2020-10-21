@@ -11,6 +11,7 @@ from drf_yasg import openapi
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api_app.urls')),
+    path('contacts/', include('email_app.urls')),
     re_path(r'', TemplateView.as_view(template_name='frontend/index.html'))
 ]
 
