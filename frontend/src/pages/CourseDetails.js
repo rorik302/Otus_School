@@ -2,6 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import {HOST} from "../index";
+import CourseDetailTeachersSection from "../components/CourseDetailTeachersSection";
+import CourseDetailTeacherCard from "../components/CourseDetailTeacherCard";
+import CourseDetailModulesSection from "../components/CourseDetailModulesSection";
+import CourseDetailModuleCard from "../components/CourseDetailModuleCard";
 
 
 class CourseDetails extends React.Component {
@@ -16,9 +20,9 @@ class CourseDetails extends React.Component {
     const {match: {params}} = this.props;
 
     axios.get(`${HOST}/api/courses/${params.id}/`)
-        .then(response => {
-          this.setState({course: response.data})
-        })
+      .then(response => {
+        this.setState({course: response.data})
+      })
 
   }
 
@@ -27,56 +31,31 @@ class CourseDetails extends React.Component {
       const {teachers, modules} = this.state.course
 
       return (
-          <>
-            <h1>{this.state.course.title}</h1>
+        <>
+          <h1>{this.state.course.title}</h1>
 
-            <p>{this.state.course.description}</p>
+          <p>{this.state.course.description}</p>
 
-            {teachers &&
-            <article className="card mb-3">
-              <div className="card-body">
-                <h4>Преподаватели</h4>
+          {teachers &&
+          <CourseDetailTeachersSection>
+            {teachers && teachers.map(teacher => {
+              return (
+                <CourseDetailTeacherCard key={teacher.id} teacher={teacher}/>
+              )
+            })}
+          </CourseDetailTeachersSection>
+          }
 
-                <div className="row m-0">
-                  {teachers && teachers.map(teacher => {
-                    return (
-                        <section className="card col-2 mr-2 mb-2" key={teacher.id}>
-                          <div className="card-body px-0">
-                            <img className="img-fluid"
-                                 src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
-                                 alt=""/>
-                            <span>{`${teacher.first_name} ${teacher.last_name}`}</span>
-                          </div>
-                        </section>
-                    )
-                  })}
-                </div>
-              </div>
-            </article>}
-
-            {modules &&
-            <article className="card">
-              <div className="card-body">
-                <h4>Программа курса</h4>
-
-                {modules && modules.map(module => {
-                  return (
-                      <section className="card mb-3" key={module.id}>
-                        <div className="card-body">
-                          <h5>{module.title}</h5>
-                        </div>
-
-                        <ul>
-                          {module.lessons && module.lessons.map(lesson => {
-                            return <li key={lesson.id}>{lesson.title}</li>
-                          })}
-                        </ul>
-                      </section>
-                  )
-                })}
-              </div>
-            </article>}
-          </>
+          {modules &&
+          <CourseDetailModulesSection>
+            {modules && modules.map(module => {
+              return (
+                <CourseDetailModuleCard key={module.id} module={module}/>
+              )
+            })}
+          </CourseDetailModulesSection>
+          }
+        </>
       )
     }
   }
