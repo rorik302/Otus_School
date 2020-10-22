@@ -20,6 +20,8 @@ class RegistrationForm extends React.Component {
     formData.append('password', this.state.password)
 
     axios.post(`${HOST}/api/students/`, formData)
+
+    document.location.href = '/login'
   }
 
 
