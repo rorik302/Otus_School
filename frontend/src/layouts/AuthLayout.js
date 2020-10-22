@@ -7,9 +7,9 @@ class AuthLayout extends React.Component {
 
     render() {
         return (
-            <>
+            <div className="vh-100 d-flex">
                 {this.props.children}
-            </>
+            </div>
         )
     }
 }

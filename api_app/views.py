@@ -57,15 +57,29 @@ class TeacherViewSet(ModelViewSet):
     serializer_class = TeacherSerializer
 
 
-class StudentView(generics.GenericAPIView):
+class StudentsViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    # permission_classes = (permissions.IsAuthenticated, )
 
+    def create(self, request, *args, **kwargs):
+        student = Student(
+            username=request.data['login'],
+        )
+        student.set_password(request.data['password'])
+        student.save()
 
-class StudentsListView(generics.ListAPIView, StudentView):
-    pass
+        serializer = StudentSerializer(student)
+        return Response(serializer.data)
 
-
-class StudentDetailView(generics.RetrieveAPIView, StudentView):
-    pass
+# class StudentView(generics.GenericAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+#     # permission_classes = (permissions.IsAuthenticated, )
+#
+#
+# class StudentsListView(generics.ListAPIView, StudentView):
+#     pass
+#
+#
+# class StudentDetailView(generics.RetrieveAPIView, StudentView):
+#     pass

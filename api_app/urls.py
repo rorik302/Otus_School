@@ -9,10 +9,11 @@ router.register('courses', views.CoursesViewSet, basename='courses')
 router.register('modules', views.ModuleViewSet)
 router.register('lessons', views.LessonViewSet)
 router.register('teachers', views.TeacherViewSet)
+router.register('students', views.StudentsViewSet)
 
 urlpatterns = [
-    # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('study/courses/', views.CoursesListView.as_view()),
     # path('study/courses/<int:pk>', views.CourseDetailView.as_view()),

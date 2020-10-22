@@ -7,6 +7,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
 import CourseDetails from "../pages/CourseDetails";
 import CourseCreate from "../pages/CourseCreate";
+import Registration from "../pages/Registration";
 
 class AppRoute extends React.Component {
     constructor(props) {
@@ -46,6 +47,7 @@ class App extends React.Component {
                     </AppRoute>
                     <AppRoute path="/contacts" exact layout={MainLayout} component={Contacts}/>
                     <AppRoute path="/login" exact layout={AuthLayout} component={Login}/>
+                    <AppRoute path="/registration" exact layout={AuthLayout} component={Registration}/>
                 </Switch>
             </Router>
         )
