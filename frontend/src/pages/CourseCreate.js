@@ -1,11 +1,24 @@
 import React from 'react';
+import CourseForm from "../components/CourseForm";
 
 class CourseCreate extends React.Component {
-    render() {
-        return (
-            <div>CourseCreate</div>
-        )
-    }
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    document.title = 'Добавление курса'
+  }
+
+  render() {
+    return (
+      <>
+        <h1>Добавление курса</h1>
+
+        <CourseForm/>
+      </>
+    )
+  }
 }
 
 export default CourseCreate

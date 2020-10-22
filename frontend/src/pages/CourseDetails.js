@@ -23,7 +23,6 @@ class CourseDetails extends React.Component {
       .then(response => {
         this.setState({course: response.data})
       })
-
   }
 
   render() {

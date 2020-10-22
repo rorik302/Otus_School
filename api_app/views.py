@@ -1,7 +1,6 @@
 from rest_framework import generics
-from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 
 from study_app.models import Course, Module, Lesson
 from study_app.serializers import CourseSerializer, ModuleSerializer, LessonSerializer
@@ -9,9 +8,38 @@ from users_app.models import Teacher, Student
 from users_app.serializers import TeacherSerializer, StudentSerializer
 
 
-class CourseViewSet(ModelViewSet):
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class CoursesViewSet(ViewSet):
+    def list(self, request):
+        queryset = Course.objects.all()
+        serializer = CourseSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request):
+        course = Course(
+            title=request.POST['title'],
+            description=request.POST['description'],
+            start_date=request.POST['startDate'],
+            duration=request.POST['duration'],
+        )
+        course.save()
+
+        for teacher_id in request.data['teachers'].split(','):
+            teacher = Teacher.objects.get(pk=teacher_id)
+            course.teachers.add(teacher)
+
+        for module_id in request.data['modules'].split(','):
+            module = Module.objects.get(pk=module_id)
+            course.modules.add(module)
+
+        course.save()
+
+        serializer = CourseSerializer(course)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk):
+        course = Course.objects.get(pk=pk)
+        serializer = CourseSerializer(course)
+        return Response(serializer.data)
 
 
 class ModuleViewSet(ModelViewSet):
@@ -24,18 +52,9 @@ class LessonViewSet(ModelViewSet):
     serializer_class = LessonSerializer
 
 
-class TeacherView(generics.GenericAPIView):
+class TeacherViewSet(ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
-    # permission_classes = (permissions.IsAuthenticated, )
-
-
-class TeachersListView(generics.ListAPIView, TeacherView):
-    pass
-
-
-class TeacherDetailView(generics.RetrieveAPIView, TeacherView):
-    pass
 
 
 class StudentView(generics.GenericAPIView):
