@@ -70,16 +70,3 @@ class StudentsViewSet(ModelViewSet):
 
         serializer = StudentSerializer(student)
         return Response(serializer.data)
-
-# class StudentView(generics.GenericAPIView):
-#     queryset = Student.objects.all()
-#     serializer_class = StudentSerializer
-#     # permission_classes = (permissions.IsAuthenticated, )
-#
-#
-# class StudentsListView(generics.ListAPIView, StudentView):
-#     pass
-#
-#
-# class StudentDetailView(generics.RetrieveAPIView, StudentView):
-#     pass
