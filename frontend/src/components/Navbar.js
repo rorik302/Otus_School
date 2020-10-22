@@ -24,6 +24,7 @@ class Navbar extends React.Component {
                     <ul className="navbar-nav flex-row">
                         <li className="nav-item px-2">
                             <Link to="/login" className="btn btn-light">Войти</Link>
+                            <Link to="/registration" className="btn btn-light ml-3">Регистрация</Link>
                         </li>
                     </ul>
                 </div>
