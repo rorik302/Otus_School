@@ -15,8 +15,6 @@ class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    console.log(this.state)
-
     let formData = new FormData()
     formData.append('username', this.state.login)
     formData.append('password', this.state.password)
@@ -25,7 +23,6 @@ class LoginForm extends React.Component {
       .then(response => localStorage.setItem('jwtToken', response.data.refresh))
 
     document.location.href = '/'
-
   }
 
 

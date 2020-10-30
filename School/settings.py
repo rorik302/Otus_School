@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "SECRET_KEY")
 
-DEBUG = bool(os.environ.get("DEBUG", default=False))
+DEBUG = bool(os.environ.get("DEBUG", default=True))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", '*').split(' ')
 
@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
     'celery',
     'rest_framework',
+    'corsheaders',
     'graphene_django',
     'debug_toolbar',
     'drf_yasg',
@@ -29,7 +30,6 @@ INSTALLED_APPS = [
     'email_app',
     'api_app',
 
-    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -37,10 +37,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'School.urls'
@@ -65,12 +66,12 @@ WSGI_APPLICATION = 'School.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv("SQL_ENGINE"),
-        'NAME': os.getenv("SQL_DATABASE"),
-        'USER': os.getenv("SQL_USER"),
-        'PASSWORD': os.getenv("SQL_PASSWORD"),
-        'HOST': os.getenv("SQL_HOST"),
-        'PORT': os.getenv("SQL_PORT"),
+        'ENGINE': os.getenv("SQL_ENGINE", 'django.db.backends.postgresql'),
+        'NAME': os.getenv("SQL_DATABASE", 'postgres'),
+        'USER': os.getenv("SQL_USER", 'postgres'),
+        'PASSWORD': os.getenv("SQL_PASSWORD", 'postgres'),
+        'HOST': os.getenv("SQL_HOST", 'localhost'),
+        'PORT': os.getenv("SQL_PORT", '5432'),
     }
 }
 
@@ -155,3 +156,9 @@ CSRF_COOKIE_NAME = "XSRF-TOKEN"
 
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+       'http://localhost:3000',
+)

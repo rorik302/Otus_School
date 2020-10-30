@@ -1,30 +1,25 @@
-import React from 'react';
-import Navbar from "../components/Navbar";
+import React from 'react'
 
-class MainLayout extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+import Navbar from "../components/Navbar"
 
-    render() {
-        return (
-            <>
-                <header>
-                    <Navbar/>
-                </header>
+const MainLayout = (props) => {
+    return (
+        <>
+            <header>
+                <Navbar />
+            </header>
 
-                <main>
-                    <div className="container">
-                        <div className="card">
-                            <div className="card-body">
-                                {this.props.children}
-                            </div>
+            <main>
+                <div className="container">
+                    <div className="card">
+                        <div className="card-body">
+                            {props.children}
                         </div>
                     </div>
-                </main>
-            </>
-        )
-    }
+                </div>
+            </main>
+        </>
+    )
 }
 
 export default MainLayout

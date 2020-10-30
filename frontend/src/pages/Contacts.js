@@ -1,20 +1,14 @@
-import React from 'react';
+import React from 'react'
 import ContactForm from "../components/ContactForm";
 
-class Contacts extends React.Component {
-  componentDidMount() {
-    document.title = 'Контакты'
-  }
-
-  render() {
+const Contacts = () => {
     return (
-      <>
-        <h1>Контакты</h1>
+        <>
+            <h1>Контакты</h1>
 
-        <ContactForm/>
-      </>
+            <ContactForm/>
+        </>
     )
-  }
 }
 
 export default Contacts
