@@ -14,15 +14,22 @@ import Registration from "../pages/Registration";
 const AppRoute = (props) => {
     const {layout: Layout, component: Component, ...rest} = props
 
-    return (
-        <Route {...rest} render={(props) => {
-            return (
-                <Layout>
-                    <Component {...props}/>
-                </Layout>
-            )
-        }}/>
-    )
+    const route = () => {
+        return (
+            <Route {...rest} render={(props) => {
+                return (
+                    <Layout>
+                        <Component {...props}/>
+                    </Layout>
+                )
+            }}/>
+        )
+    }
+
+    if(Layout && Component) {
+        return route()
+    }
+    return null
 }
 
 const App = () => {
@@ -30,12 +37,12 @@ const App = () => {
         <Router>
             <Switch>
                 <AppRoute path="/" exact layout={MainLayout} component={CoursesList}/>
-                <AppRoute path="/courses" layout={MainLayout}>
+                <Route path="/courses">
                     <Switch>
                         <AppRoute path="/courses/create" layout={MainLayout} component={CourseCreate}/>
                         <AppRoute path="/courses/:id" layout={MainLayout} component={CourseDetails}/>
                     </Switch>
-                </AppRoute>
+                </Route>
                 <AppRoute path="/contacts" exact layout={MainLayout} component={Contacts}/>
                 <AppRoute path="/login" exact layout={AuthLayout} component={Login}/>
                 <AppRoute path="/registration" exact layout={AuthLayout} component={Registration}/>
