@@ -6,6 +6,4 @@ import 'antd/dist/antd.min.css'
 
 import App from "./components/App";
 
-export const HOST = 'http://127.0.0.1:8000'
-
 ReactDOM.render(<App />, document.getElementById('root'))

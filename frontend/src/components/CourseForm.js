@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import {HOST} from "../index";
 
 import {Select} from "antd";
 
@@ -23,7 +22,7 @@ class CourseForm extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${HOST}/api/teachers/`)
+        axios.get(`/api/teachers/`)
             .then(response => {
                 let teachers = []
                 response.data.map(teacher => teachers.push(<Option
@@ -31,7 +30,7 @@ class CourseForm extends React.Component {
                 this.setState({teachers: teachers})
             })
 
-        axios.get(`${HOST}/api/modules/`)
+        axios.get(`/api/modules/`)
             .then(response => {
                 let modules = []
                 response.data.map(module => modules.push(<Option key={module.id}>{module.title}</Option>))
@@ -50,7 +49,7 @@ class CourseForm extends React.Component {
         formData.append('teachers', this.state.selectedTeachers)
         formData.append('modules', this.state.selectedModules)
 
-        axios.post(`${HOST}/api/courses/`, formData)
+        axios.post(`/api/courses/`, formData)
 
         document.location.href = '/'
     }

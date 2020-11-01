@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import {HOST} from "../index";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class LoginForm extends React.Component {
     formData.append('username', this.state.login)
     formData.append('password', this.state.password)
 
-    axios.post(`${HOST}/api/token/`, formData)
+    axios.post(`/api/token/`, formData)
       .then(response => localStorage.setItem('jwtToken', response.data.refresh))
 
     document.location.href = '/'

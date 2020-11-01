@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 
-import {HOST} from "../index";
-
 import CourseDetailTeachersSection from "../components/CourseDetailTeachersSection";
 import CourseDetailTeacherCard from "../components/CourseDetailTeacherCard";
 import CourseDetailModulesSection from "../components/CourseDetailModulesSection";
@@ -19,7 +17,7 @@ class CourseDetails extends React.Component {
     componentDidMount() {
         const {match: {params}} = this.props;
 
-        axios.get(`${HOST}/api/courses/${params.id}/`)
+        axios.get(`/api/courses/${params.id}/`)
             .then(response => {
                 this.setState({course: response.data})
             })

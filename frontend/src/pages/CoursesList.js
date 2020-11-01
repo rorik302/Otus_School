@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import CourseCard from "../components/CourseCard";
-import {HOST} from "../index";
 
 const CoursesList = () => {
     const [courses, setCourses] = useState([])
 
     useEffect(() => {
-        axios.get(`${HOST}/api/courses/`)
+        axios.get(`/api/courses/`)
             .then(response => setCourses(response.data))
     }, [])
 

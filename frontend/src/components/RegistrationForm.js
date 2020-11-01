@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import {HOST} from "../index";
 
 class RegistrationForm extends React.Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class RegistrationForm extends React.Component {
     formData.append('login', this.state.login)
     formData.append('password', this.state.password)
 
-    axios.post(`${HOST}/api/students/`, formData)
+    axios.post(`/api/students/`, formData)
 
     document.location.href = '/login'
   }

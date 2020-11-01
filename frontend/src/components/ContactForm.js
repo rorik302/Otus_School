@@ -1,8 +1,6 @@
 import React from 'react'
 import axios from 'axios'
 
-import {HOST} from "../index";
-
 class ContactForm extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +23,7 @@ class ContactForm extends React.Component {
 
     axios({
       method: 'post',
-      url: `${HOST}/contacts/`,
+      url: `/contacts/`,
       data: formData,
       xsrfHeaderName: "X-CSRFToken",
       headers: {
