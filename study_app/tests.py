@@ -6,14 +6,14 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIRequestFactory
 
-from api_app.views import CourseViewSet, ModuleViewSet, LessonViewSet
+from api_app.views import CoursesViewSet, ModuleViewSet, LessonViewSet
 from study_app.factories import CourseFactory, ModuleFactory, LessonFactory
 from study_app.models import Lesson, Module
 
 
 class LessonTests(TestCase):
 
-    def test_create_course(self):
+    def test_create_lesson(self):
         lesson = Lesson.objects.create(
             title='Lesson title',
             description='Description',
@@ -38,7 +38,20 @@ class CourseTests(TestCase):
         response = self.client.get(reverse('courses-list'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertIsInstance(response.context_data['object_list'], QuerySet)
+        # self.assertIsInstance(response.context_data['object_list'], QuerySet)
+
+    def test_get_course_details(self):
+        course = CourseFactory(
+            id=1,
+            title='Course Title',
+            duration=10,
+            start_date=datetime.now()
+        )
+        factory = APIRequestFactory()
+        request = factory.get(f'api/study/courses/{course.id}')
+        course_details_view = CoursesViewSet.as_view({'get': 'retrieve'})
+        response = course_details_view(request, course.id)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class StudyTestCase(APITestCase):
@@ -52,7 +65,7 @@ class StudyTestCase(APITestCase):
         )
         factory = APIRequestFactory()
         request = factory.get('api/study/courses/')
-        courses_view = CourseViewSet.as_view({'get': 'list'})
+        courses_view = CoursesViewSet.as_view({'get': 'list'})
         response = courses_view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
